@@ -94,7 +94,7 @@ class CheckOutActivity : AppCompatActivity() {
                         newTransaksi.nama_pelanggan,
                         newTransaksi.status)
                     var meja = db.cafeDao().getMeja(newTransaksi.id_meja)
-                    db.cafeDao().updateMeja(meja.nomor_meja, meja.id_meja!!, true)
+                    db.cafeDao().updateMeja(meja.nomor_meja!!, meja.id_meja!!, true)
                     for (i in listMenu){
                         db.cafeDao().insertDetailTransaksi(DetailTransaksi(
                             null,

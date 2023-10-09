@@ -62,24 +62,27 @@ class ListTransaksiActivity : AppCompatActivity() {
                     when(direction){
                         ItemTouchHelper.LEFT -> {
                             var adapter: TransaksiAdapter = itemRv.adapter as TransaksiAdapter
-                            db.cafeDao().deleteTransaksi(adapter.getItem(position))
-                            var listDetail = db.cafeDao().getDetailTransaksifromTransaksi(adapter.getItem(position).id_transaksi!!)
-                            for(i in 0..listDetail.size - 1) run {
-                                db.cafeDao().deleteDetailTransaksi(listDetail[i])
+                            if(adapter.getItem(position).status == "Dibayar"){
+                                db.cafeDao().deleteTransaksi(adapter.getItem(position))
+                                var listDetail = db.cafeDao().getDetailTransaksifromTransaksi(adapter.getItem(position).id_transaksi!!)
+                                for(i in 0..listDetail.size - 1) run {
+                                    db.cafeDao().deleteDetailTransaksi(listDetail[i])
+                                }
+                                adapter.notifyItemRemoved(position)
+                                val intent = intent
                             }
-                            adapter.notifyItemRemoved(position)
-                            val intent = intent
+                            else{
+                                Toast.makeText(applicationContext, "Status Transaksi harus dibayar sebelum menghapus", Toast.LENGTH_SHORT).show()
+                            }
                             finish()
                             startActivity(intent)
                         }
                         ItemTouchHelper.RIGHT -> {
                             var adapter: TransaksiAdapter = itemRv.adapter as TransaksiAdapter
                             var transaksi = adapter.getItem(position)
-                            if(db.cafeDao().getMeja(db.cafeDao().getTransaksi(transaksi.id_transaksi!!).id_meja).used == true){
-                                val moveIntent = Intent(this@ListTransaksiActivity, EditTransaksiActivity::class.java)
-                                moveIntent.putExtra("ID", transaksi.id_transaksi)
-                                startActivity(moveIntent)
-                            }
+                            val moveIntent = Intent(this@ListTransaksiActivity, EditTransaksiActivity::class.java)
+                            moveIntent.putExtra("ID", transaksi.id_transaksi)
+                            startActivity(moveIntent)
                         }
                     }
                 }

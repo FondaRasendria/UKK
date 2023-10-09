@@ -29,7 +29,9 @@ class MainActivity2 : AppCompatActivity() {
     lateinit var addButton: ImageButton
     lateinit var mejaButton: ImageButton
     lateinit var transaksiButton: ImageButton
+    lateinit var logoutButton: ImageButton
     lateinit var checkoutButton: Button
+    lateinit var clearButton: Button
 
     private var listMakanan = mutableListOf<Menu>()
     private var listMinuman = mutableListOf<Menu>()
@@ -51,7 +53,9 @@ class MainActivity2 : AppCompatActivity() {
         addButton = findViewById(R.id.buttonAdd)
         mejaButton = findViewById(R.id.buttonMeja)
         transaksiButton = findViewById(R.id.buttonTransaksi)
+        logoutButton = findViewById(R.id.buttonLogout)
         checkoutButton = findViewById(R.id.checkOut)
+        clearButton = findViewById(R.id.clearButton)
 
         db = CafeDatabase.getInstance(applicationContext)
         adapterMakanan = ItemAdapter(listMakanan)
@@ -107,14 +111,16 @@ class MainActivity2 : AppCompatActivity() {
         recyclerSnack.adapter = adapterSnack
         recyclerSnack.layoutManager = LinearLayoutManager(this)
 
-        swipeToGesture(recyclerMakanan)
-        swipeToGesture(recyclerMinuman)
-        swipeToGesture(recyclerSnack)
-
         nama = intent.getStringExtra("name")!!
         role = intent.getStringExtra("role")!!
         id_user = intent.getIntExtra("id_user", 0)
         Toast.makeText(applicationContext, "Logged in as " + nama, Toast.LENGTH_SHORT).show()
+
+        if(role == "Admin"){
+            swipeToGesture(recyclerMakanan)
+            swipeToGesture(recyclerMinuman)
+            swipeToGesture(recyclerSnack)
+        }
 
         if(role != "Admin"){
             addButton.isEnabled = false
@@ -131,6 +137,7 @@ class MainActivity2 : AppCompatActivity() {
         }
         mejaButton.setOnClickListener{
             val moveIntent = Intent(this@MainActivity2, ListMejaActivity::class.java)
+            moveIntent.putExtra("role", role)
             startActivity(moveIntent)
         }
         transaksiButton.setOnClickListener{
@@ -142,6 +149,13 @@ class MainActivity2 : AppCompatActivity() {
             moveIntent.putIntegerArrayListExtra("CART", listCart)
             moveIntent.putExtra("id_user", id_user)
             startActivity(moveIntent)
+        }
+        logoutButton.setOnClickListener{
+            finish()
+        }
+        clearButton.setOnClickListener{
+            finish()
+            startActivity(intent)
         }
     }
 

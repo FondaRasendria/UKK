@@ -87,7 +87,15 @@ class ManagerActivity : AppCompatActivity() {
 
         var yAxis: YAxis = barChart.axisLeft
         yAxis.axisMinimum = 0f
-        yAxis.axisMaximum = 10f
+        var yAxisMaximum = 0
+        yAxisMaximum = db.cafeDao().getMaxCountDetailTransaksi()
+        for(i in 0..10){
+            if((yAxisMaximum + i)%10 == 0){
+                yAxisMaximum += i
+                break
+            }
+        }
+        yAxis.axisMaximum = yAxisMaximum.toFloat()
         yAxis.axisLineWidth = 2f
         yAxis.axisLineColor = Color.BLACK
         yAxis.setLabelCount(11, true)
@@ -97,6 +105,7 @@ class ManagerActivity : AppCompatActivity() {
         barChart.xAxis.granularity = 1f
         barChart.xAxis.isGranularityEnabled = true
         barChart.axisRight.isEnabled = false
+        barChart.isDoubleTapToZoomEnabled = false
         //------------------------------Line------------------------------//
         lineChart.axisRight.setDrawLabels(false)
         lineChart.description = null
@@ -125,6 +134,14 @@ class ManagerActivity : AppCompatActivity() {
         xAxisLine.labelCount = 4
         xAxisLine.granularity = 1f
 
+        var yAxisLineMaximum = 0
+        yAxisLineMaximum = db.cafeDao().getMaxCountDetailTransaksi()
+        for(i in 0..10){
+            if((yAxisLineMaximum + i)%10 == 0){
+                yAxisLineMaximum += i
+                break
+            }
+        }
         yAxisLine.axisMinimum = 0f
         yAxisLine.axisMaximum = 10f
         yAxisLine.axisLineWidth = 2f

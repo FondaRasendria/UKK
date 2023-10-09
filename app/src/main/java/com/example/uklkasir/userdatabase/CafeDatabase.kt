@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase
         Transaksi::class,
         User::class
     ],
-    version = 2
+    version = 4
 )
 abstract class CafeDatabase: RoomDatabase() {
     abstract fun cafeDao(): CafeDao

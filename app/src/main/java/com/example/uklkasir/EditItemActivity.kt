@@ -31,7 +31,11 @@ class EditItemActivity : AppCompatActivity() {
         init()
         setDataSpinner()
 
-        nama
+        val adapter = ArrayAdapter.createFromResource(applicationContext, R.array.tipe, android.R.layout.simple_spinner_item)
+
+        nama.setText(nama_menu)
+        harga.setText(harga_menu.toString())
+        pilihTipe.setSelection(adapter.getPosition(jenis))
 
 
         db = CafeDatabase.getInstance(applicationContext)

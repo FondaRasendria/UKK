@@ -29,8 +29,18 @@ class DetailAdapter(var items: List<DetailTransaksi>): RecyclerView.Adapter<Deta
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.namaMenu.text = db.cafeDao().getMenu(items.get(position).id_menu).nama_menu
-        holder.hargaMenu.text = "Rp." + db.cafeDao().getMenu(items.get(position).id_menu).harga.toString()
+        try {
+            holder.namaMenu.text = db.cafeDao().getMenu(items.get(position).id_menu).nama_menu
+        }
+        catch (e: Exception){
+            holder.namaMenu.text = "null"
+        }
+        try {
+            holder.hargaMenu.text = "Rp." + db.cafeDao().getMenu(items.get(position).id_menu).harga.toString()
+        }
+        catch (e: Exception){
+            holder.hargaMenu.text = "null"
+        }
     }
 
     override fun getItemCount(): Int {

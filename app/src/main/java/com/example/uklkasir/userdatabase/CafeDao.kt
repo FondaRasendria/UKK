@@ -80,9 +80,12 @@ interface CafeDao {
     @Query("SELECT * FROM Transaksi WHERE id_transaksi = :Id")
     fun getTransaksi(Id: Int): Transaksi
 
-    @Query("SELECT COUNT(id_detail_transaksi) as count, id_menu FROM DetailTransaksi GROUP BY id_menu")
+    @Query("SELECT COUNT(id_detail_transaksi) as count, id_menu FROM DetailTransaksi GROUP BY id_menu LIMIT 5")
     fun getCountDetailTransaksi(): List<CountMenu>
 
-    @Query("SELECT COUNT(id_transaksi) as count, tgl_transaksi FROM Transaksi GROUP BY tgl_transaksi")
+    @Query("SELECT COUNT(id_transaksi) as count, tgl_transaksi FROM Transaksi GROUP BY tgl_transaksi LIMIT 10")
     fun getCountTransaksi(): List<CountTransaksi>
+
+    @Query("SELECT MAX(count) FROM (SELECT COUNT(id_detail_transaksi) as count FROM DetailTransaksi GROUP BY id_menu)")
+    fun getMaxCountDetailTransaksi(): Int
 }

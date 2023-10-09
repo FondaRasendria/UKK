@@ -23,6 +23,8 @@ class EditMejaActivity : AppCompatActivity() {
 
         var id = intent.getIntExtra("ID", 0)
 
+        inputNama.setText(db.cafeDao().getMeja(id).nomor_meja)
+
         simpanButton.setOnClickListener{
             if(inputNama.text.toString().isNotEmpty()){
                 db.cafeDao().updateMeja(inputNama.text.toString(), id, false)

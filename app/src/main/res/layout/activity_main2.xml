@@ -35,6 +35,13 @@
             android:backgroundTint="@color/white"
             android:layout_toLeftOf="@id/buttonAdd"
             android:layout_marginRight="10dp"/>
+        <ImageButton
+            android:id="@+id/buttonLogout"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/ic_baseline_logout_24"
+            android:backgroundTint="@color/white"
+            android:layout_marginLeft="10dp"/>
     </RelativeLayout>
 
     <ScrollView
@@ -45,6 +52,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+            <Button
+                android:id="@+id/clearButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Clear keranjang"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -49,7 +49,7 @@ class EditTransaksiActivity : AppCompatActivity() {
                 )
                 if(dibayar.isChecked){
                     var meja = db.cafeDao().getMeja(db.cafeDao().getTransaksi(id_transaksi).id_meja)
-                    db.cafeDao().updateMeja(meja.nomor_meja, meja.id_meja!!, false)
+                    db.cafeDao().updateMeja(meja.nomor_meja!!, meja.id_meja!!, false)
                 }
 
                 finish()

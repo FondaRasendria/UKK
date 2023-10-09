@@ -3,6 +3,7 @@ package com.example.uklkasir
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -22,6 +23,8 @@ class ListMejaActivity : AppCompatActivity() {
 
     lateinit var db: CafeDatabase
 
+    var role = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_meja)
@@ -31,11 +34,19 @@ class ListMejaActivity : AppCompatActivity() {
 
         db = CafeDatabase.getInstance(applicationContext)
 
+        role = intent.getStringExtra("role")!!
+
         recycler.layoutManager = LinearLayoutManager(this)
         adapter = MejaAdapter(listMeja)
         recycler.adapter = adapter
 
-        swipeToGesture(recycler)
+        if(role == "Admin"){
+            swipeToGesture(recycler)
+        }
+        else{
+            addButton.isEnabled = false
+            addButton.visibility = View.INVISIBLE
+        }
 
         addButton.setOnClickListener{
             val moveIntent = Intent(this@ListMejaActivity, AddMejaActivity::class.java)

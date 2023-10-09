@@ -42,7 +42,12 @@ class TransaksiAdapter(var items: List<Transaksi>): RecyclerView.Adapter<Transak
         holder.textWaktu.text = items[position].waktu_transaksi
         holder.textTanggal.text = items[position].tgl_transaksi
         holder.textStatus.text = items[position].status
-        holder.textMeja.text = db.cafeDao().getMeja(items[position].id_meja).nomor_meja
+        try{
+            holder.textMeja.text = db.cafeDao().getMeja(items[position].id_meja).nomor_meja
+        }
+        catch(e: Exception){
+            holder.textMeja.text = "null"
+        }
         holder.relative.setOnClickListener{
             onHolderClick?.invoke(items[position])
         }
